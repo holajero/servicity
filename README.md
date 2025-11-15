@@ -1,5 +1,5 @@
 # ServiCity.com.ar
-[cloudflarebutton]
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/holajero/servicity)
 A modern, fast, and visually elegant real estate website for property listings, search, and client inquiries.
 ServiCity.com.ar is a visually stunning, modern, and high-performance real estate website. It provides a seamless user experience for browsing, searching, and inquiring about properties. The platform features a minimalist and elegant design, focusing on high-quality imagery and intuitive navigation. The entire application is built on Cloudflare's edge network, ensuring exceptional speed and reliability for users in Argentina.
 ## ✨ Key Features
@@ -63,7 +63,7 @@ This project is designed for seamless deployment to Cloudflare Pages.
     bun deploy
     ```
 Alternatively, you can deploy directly from your GitHub repository using the button below.
-[cloudflarebutton]
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/holajero/servicity)
 ## ⚙️ Configuration
 The application is architected to use a single `GlobalDurableObject` for all data persistence, managed through an entity abstraction layer. All necessary Cloudflare bindings are pre-configured in `wrangler.jsonc`.
 **Important**: Do not modify `wrangler.jsonc` or attempt to add new bindings, as this may break the core functionality of the application.
