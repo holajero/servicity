@@ -10,6 +10,7 @@ import {
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { RouteErrorBoundary } from '@/components/RouteErrorBoundary';
 import '@/index.css'
+import 'leaflet/dist/leaflet.css'; // Import leaflet CSS
 import { HomePage } from '@/pages/HomePage';
 import { PropertiesPage } from '@/pages/PropertiesPage';
 import { PropertyDetailPage } from '@/pages/PropertyDetailPage';

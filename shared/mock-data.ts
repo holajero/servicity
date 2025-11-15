@@ -10,6 +10,7 @@ export const MOCK_PROPERTIES: Property[] = [
       address: 'Humboldt 1234',
       city: 'CABA',
       neighborhood: 'Palermo Hollywood',
+      coordinates: { lat: -34.5833, lng: -58.4333 }
     },
     type: 'Departamento',
     bedrooms: 1,
@@ -38,6 +39,7 @@ export const MOCK_PROPERTIES: Property[] = [
       address: 'Melián 2345',
       city: 'CABA',
       neighborhood: 'Belgrano R',
+      coordinates: { lat: -34.5625, lng: -58.4583 }
     },
     type: 'Casa',
     bedrooms: 4,
@@ -66,6 +68,7 @@ export const MOCK_PROPERTIES: Property[] = [
       address: 'Serrano 567',
       city: 'CABA',
       neighborhood: 'Villa Crespo',
+      coordinates: { lat: -34.5958, lng: -58.4431 }
     },
     type: 'PH',
     bedrooms: 2,
@@ -94,6 +97,7 @@ export const MOCK_PROPERTIES: Property[] = [
       address: 'Av. Alvear 1800',
       city: 'CABA',
       neighborhood: 'Recoleta',
+      coordinates: { lat: -34.5889, lng: -58.3917 }
     },
     type: 'Departamento',
     bedrooms: 3,
@@ -122,6 +126,7 @@ export const MOCK_PROPERTIES: Property[] = [
       address: 'Av. Rivadavia 5500',
       city: 'CABA',
       neighborhood: 'Caballito',
+      coordinates: { lat: -34.6189, lng: -58.4436 }
     },
     type: 'Local',
     bedrooms: 0,
@@ -149,6 +154,7 @@ export const MOCK_PROPERTIES: Property[] = [
       address: 'Tomkinson 3000',
       city: 'San Isidro',
       neighborhood: 'Lomas de San Isidro',
+      coordinates: { lat: -34.485, lng: -58.535 }
     },
     type: 'Terreno',
     bedrooms: 0,
@@ -176,6 +182,7 @@ export const MOCK_PROPERTIES: Property[] = [
       address: 'Pringles 400',
       city: 'CABA',
       neighborhood: 'Almagro',
+      coordinates: { lat: -34.6083, lng: -58.425 }
     },
     type: 'Departamento',
     bedrooms: 1,
@@ -203,6 +210,7 @@ export const MOCK_PROPERTIES: Property[] = [
       address: 'Barrio Los Castores 123',
       city: 'Tigre',
       neighborhood: 'Nordelta',
+      coordinates: { lat: -34.413, lng: -58.645 }
     },
     type: 'Casa',
     bedrooms: 5,

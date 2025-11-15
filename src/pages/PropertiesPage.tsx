@@ -1,3 +1,5 @@
+import { useState, useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { PropertyCard } from "@/components/PropertyCard";
 import { Button } from "@/components/ui/button";
@@ -10,11 +12,36 @@ import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { Property } from "@shared/types";
 import { PropertyCardSkeleton } from "@/components/PropertyCardSkeleton";
+import { useDebounce } from "@/hooks/use-debounce";
 export function PropertiesPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '');
+  const [propertyType, setPropertyType] = useState(searchParams.get('type') || 'all');
+  const [bedrooms, setBedrooms] = useState(searchParams.get('bedrooms') || 'any');
+  const [priceRange, setPriceRange] = useState<[number, number]>([
+    Number(searchParams.get('minPrice')) || 50000,
+    Number(searchParams.get('maxPrice')) || 1500000
+  ]);
+  const [sortBy, setSortBy] = useState(searchParams.get('sortBy') || 'relevance');
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+  const queryParams = useMemo(() => {
+    const params = new URLSearchParams();
+    if (debouncedSearchTerm) params.set('search', debouncedSearchTerm);
+    if (propertyType !== 'all') params.set('type', propertyType);
+    if (bedrooms !== 'any') params.set('bedrooms', bedrooms);
+    params.set('minPrice', String(priceRange[0]));
+    params.set('maxPrice', String(priceRange[1]));
+    if (sortBy !== 'relevance') params.set('sortBy', sortBy);
+    return params;
+  }, [debouncedSearchTerm, propertyType, bedrooms, priceRange, sortBy]);
   const { data: propertiesData, isLoading } = useQuery<{ items: Property[] }>({
-    queryKey: ['properties'],
-    queryFn: () => api('/api/properties')
+    queryKey: ['properties', queryParams.toString()],
+    queryFn: () => api(`/api/properties?${queryParams.toString()}`),
+    placeholderData: (previousData) => previousData,
   });
+  const handleApplyFilters = () => {
+    setSearchParams(queryParams);
+  };
   const properties = propertiesData?.items || [];
   return (
     <MainLayout>
@@ -26,7 +53,6 @@ export function PropertiesPage() {
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid lg:grid-cols-4 gap-8">
-          {/* Filters Sidebar */}
           <aside className="lg:col-span-1">
             <div className="sticky top-24 p-6 bg-white rounded-lg shadow-sm border">
               <div className="flex items-center gap-2 mb-6">
@@ -37,31 +63,31 @@ export function PropertiesPage() {
                 <div>
                   <Label htmlFor="search">Búsqueda</Label>
                   <div className="relative mt-2">
-                    <Input id="search" placeholder="Barrio, dirección..." />
+                    <Input id="search" placeholder="Barrio, dirección..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                     <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   </div>
                 </div>
                 <div>
                   <Label>Tipo de Propiedad</Label>
-                  <Select>
+                  <Select value={propertyType} onValueChange={setPropertyType}>
                     <SelectTrigger className="mt-2">
-                      <SelectValue placeholder="Todas" />
+                      <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="todos">Todas</SelectItem>
-                      <SelectItem value="casa">Casa</SelectItem>
-                      <SelectItem value="departamento">Departamento</SelectItem>
-                      <SelectItem value="ph">PH</SelectItem>
-                      <SelectItem value="local">Local</SelectItem>
-                      <SelectItem value="terreno">Terreno</SelectItem>
+                      <SelectItem value="all">Todas</SelectItem>
+                      <SelectItem value="Casa">Casa</SelectItem>
+                      <SelectItem value="Departamento">Departamento</SelectItem>
+                      <SelectItem value="PH">PH</SelectItem>
+                      <SelectItem value="Local">Local</SelectItem>
+                      <SelectItem value="Terreno">Terreno</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div>
                   <Label>Dormitorios</Label>
-                   <Select>
+                   <Select value={bedrooms} onValueChange={setBedrooms}>
                     <SelectTrigger className="mt-2">
-                      <SelectValue placeholder="Cualquiera" />
+                      <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="any">Cualquiera</SelectItem>
@@ -75,24 +101,23 @@ export function PropertiesPage() {
                 <div>
                   <Label>Rango de Precio (USD)</Label>
                   <div className="mt-4">
-                    <Slider defaultValue={[50000, 500000]} max={1500000} step={10000} />
+                    <Slider value={priceRange} onValueChange={(value) => setPriceRange(value as [number, number])} max={2000000} step={10000} />
                     <div className="flex justify-between text-sm text-muted-foreground mt-2">
-                      <span>50k</span>
-                      <span>1.5M</span>
+                      <span>${(priceRange[0] / 1000)}k</span>
+                      <span>${(priceRange[1] / 1000)}k</span>
                     </div>
                   </div>
                 </div>
-                <Button className="w-full bg-brand-primary hover:bg-brand-primary/90 text-brand-primary-foreground">Aplicar Filtros</Button>
+                <Button onClick={handleApplyFilters} className="w-full bg-brand-primary hover:bg-brand-primary/90 text-brand-primary-foreground">Aplicar Filtros</Button>
               </div>
             </div>
           </aside>
-          {/* Properties Grid */}
           <main className="lg:col-span-3">
             <div className="flex justify-between items-center mb-6">
-              <p className="text-muted-foreground">{isLoading ? 'Cargando...' : `${properties.length} propiedades encontradas`}</p>
+              <p className="text-muted-foreground">{isLoading ? 'Buscando...' : `${properties.length} propiedades encontradas`}</p>
               <div className="flex items-center gap-2">
                 <Label className="text-sm">Ordenar por:</Label>
-                <Select defaultValue="relevance">
+                <Select value={sortBy} onValueChange={setSortBy}>
                   <SelectTrigger className="w-[180px]">
                     <SelectValue />
                   </SelectTrigger>
@@ -106,12 +131,17 @@ export function PropertiesPage() {
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {isLoading ? (
+              {isLoading && properties.length === 0 ? (
                 Array.from({ length: 8 }).map((_, i) => <PropertyCardSkeleton key={i} />)
-              ) : (
+              ) : properties.length > 0 ? (
                 properties.map(property => (
                   <PropertyCard key={property.id} property={property} />
                 ))
+              ) : (
+                <div className="md:col-span-2 text-center py-12">
+                  <p className="text-lg font-semibold">No se encontraron propiedades</p>
+                  <p className="text-muted-foreground mt-2">Intenta ajustar tus filtros de búsqueda.</p>
+                </div>
               )}
             </div>
           </main>

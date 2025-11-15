@@ -15,6 +15,10 @@ export interface Property {
     address: string;
     city: string;
     neighborhood: string;
+    coordinates: {
+      lat: number;
+      lng: number;
+    };
   };
   type: PropertyType;
   bedrooms: number;
@@ -28,4 +32,13 @@ export interface Property {
     phone: string;
     email: string;
   };
+}
+export interface ContactFormPayload {
+    name: string;
+    email: string;
+    phone?: string;
+    subject?: string;
+    message: string;
+    propertyId?: string;
+    propertyTitle?: string;
 }
