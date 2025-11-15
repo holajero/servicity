@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { BedDouble, Bath, Ruler, MapPin, CheckCircle, Mail, Phone, AlertTriangle, Loader2 } from "lucide-react";
@@ -75,9 +76,19 @@ export function PropertyDetailPage() {
       name: "",
       email: "",
       phone: "",
-      message: `Hola, estoy interesado/a en la propiedad "${property?.title || ''}" (ID: ${id}).`,
+      message: "",
     },
   });
+  useEffect(() => {
+    if (property) {
+      form.reset({
+        name: "",
+        email: "",
+        phone: "",
+        message: `Hola, estoy interesado/a en la propiedad "${property.title}" (ID: ${id}).`,
+      });
+    }
+  }, [property, id, form]);
   const { isSubmitting } = form.formState;
   async function onSubmit(values: z.infer<typeof agentContactSchema>) {
     const payload: ContactFormPayload = {
@@ -92,10 +103,10 @@ export function PropertyDetailPage() {
         body: JSON.stringify(payload),
       });
       toast.success("¡Consulta enviada!", {
-        description: "El agente se pondr�� en contacto contigo a la brevedad.",
+        description: "El agente se pondrá en contacto contigo a la brevedad.",
       });
       form.reset({
-        ...form.getValues(),
+        ...values,
         name: '',
         email: '',
         phone: ''
