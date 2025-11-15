@@ -14,6 +14,10 @@ export class PropertyEntity extends IndexedEntity<Property> {
       address: "",
       city: "",
       neighborhood: "",
+      coordinates: {
+        lat: 0,
+        lng: 0,
+      },
     },
     type: "Casa",
     bedrooms: 0,

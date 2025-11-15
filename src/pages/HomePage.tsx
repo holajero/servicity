@@ -76,7 +76,7 @@ export function HomePage() {
       <section className="bg-muted/50 py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-brand-primary">¿Por qué elegir Urbe Hogar?</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-brand-primary">¿Por qué elegir ServiCity.com.ar?</h2>
             <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
               Te ofrecemos un servicio integral y personalizado para que tu experiencia sea excepcional.
             </p>
@@ -85,7 +85,7 @@ export function HomePage() {
             <div className="p-6">
               <Building className="h-12 w-12 mx-auto text-brand-accent" />
               <h3 className="mt-4 text-xl font-semibold">Amplio Catálogo</h3>
-              <p className="mt-2 text-muted-foreground">Las mejores propiedades en las ubicaciones m��s deseadas de la ciudad y sus alrededores.</p>
+              <p className="mt-2 text-muted-foreground">Las mejores propiedades en las ubicaciones más deseadas de la ciudad y sus alrededores.</p>
             </div>
             <div className="p-6">
               <Users className="h-12 w-12 mx-auto text-brand-accent" />

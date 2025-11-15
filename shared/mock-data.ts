@@ -26,7 +26,7 @@ export const MOCK_PROPERTIES: Property[] = [
     agent: {
       name: 'Juan Pérez',
       phone: '+54 9 11 1234-5678',
-      email: 'juan.perez@urbehogar.com'
+      email: 'juan.perez@servicity.com.ar'
     }
   },
   {
@@ -55,7 +55,7 @@ export const MOCK_PROPERTIES: Property[] = [
     agent: {
       name: 'María García',
       phone: '+54 9 11 8765-4321',
-      email: 'maria.garcia@urbehogar.com'
+      email: 'maria.garcia@servicity.com.ar'
     }
   },
   {
@@ -84,7 +84,7 @@ export const MOCK_PROPERTIES: Property[] = [
     agent: {
       name: 'Juan Pérez',
       phone: '+54 9 11 1234-5678',
-      email: 'juan.perez@urbehogar.com'
+      email: 'juan.perez@servicity.com.ar'
     }
   },
   {
@@ -113,7 +113,7 @@ export const MOCK_PROPERTIES: Property[] = [
     agent: {
       name: 'María García',
       phone: '+54 9 11 8765-4321',
-      email: 'maria.garcia@urbehogar.com'
+      email: 'maria.garcia@servicity.com.ar'
     }
   },
   {
@@ -141,7 +141,7 @@ export const MOCK_PROPERTIES: Property[] = [
     agent: {
       name: 'Carlos Rodriguez',
       phone: '+54 9 11 5555-4444',
-      email: 'carlos.rodriguez@urbehogar.com'
+      email: 'carlos.rodriguez@servicity.com.ar'
     }
   },
   {
@@ -169,7 +169,7 @@ export const MOCK_PROPERTIES: Property[] = [
     agent: {
       name: 'María García',
       phone: '+54 9 11 8765-4321',
-      email: 'maria.garcia@urbehogar.com'
+      email: 'maria.garcia@servicity.com.ar'
     }
   },
   {
@@ -197,7 +197,7 @@ export const MOCK_PROPERTIES: Property[] = [
     agent: {
       name: 'Juan Pérez',
       phone: '+54 9 11 1234-5678',
-      email: 'juan.perez@urbehogar.com'
+      email: 'juan.perez@servicity.com.ar'
     }
   },
   {
@@ -226,7 +226,7 @@ export const MOCK_PROPERTIES: Property[] = [
     agent: {
       name: 'María García',
       phone: '+54 9 11 8765-4321',
-      email: 'maria.garcia@urbehogar.com'
+      email: 'maria.garcia@servicity.com.ar'
     }
   }
 ];

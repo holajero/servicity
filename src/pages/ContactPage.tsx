@@ -142,7 +142,7 @@ export function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold">Email</h3>
-                    <p className="text-muted-foreground">contacto@urbehogar.com.ar</p>
+                    <p className="text-muted-foreground">contacto@servicity.com.ar</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -156,7 +156,7 @@ export function ContactPage() {
                 </div>
               </div>
               <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden border">
-                <DynamicMap coordinates={{ lat: -34.58, lng: -58.4 }} popupText="Urbe Hogar Oficinas" />
+                <DynamicMap coordinates={{ lat: -34.58, lng: -58.4 }} popupText="ServiCity.com.ar Oficinas" />
               </div>
             </div>
           </div>
