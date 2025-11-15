@@ -10,12 +10,12 @@ import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { toast } from "sonner";
 import { api } from "@/lib/api-client";
-import type { ContactFormPayload } from "@shared/types";
+import type { ContactFormPayload } from "@shared/types";interface DynamicMapProps {children?: React.ReactNode;className?: string;style?: React.CSSProperties;[key: string]: unknown;}
 const contactFormSchema = z.object({
   name: z.string().min(2, { message: "El nombre es requerido." }),
   email: z.string().email({ message: "Por favor, ingresa un email válido." }),
   subject: z.string().optional(),
-  message: z.string().min(10, { message: "El mensaje debe tener al menos 10 caracteres." }),
+  message: z.string().min(10, { message: "El mensaje debe tener al menos 10 caracteres." })
 });
 export function ContactPage() {
   const form = useForm<z.infer<typeof contactFormSchema>>({
@@ -24,23 +24,23 @@ export function ContactPage() {
       name: "",
       email: "",
       subject: "",
-      message: "",
-    },
+      message: ""
+    }
   });
   const { isSubmitting } = form.formState;
   async function onSubmit(values: z.infer<typeof contactFormSchema>) {
     try {
       await api<ContactFormPayload>('/api/contact', {
         method: 'POST',
-        body: JSON.stringify(values),
+        body: JSON.stringify(values)
       });
       toast.success("¡Mensaje enviado!", {
-        description: "Gracias por contactarnos. Te responderemos a la brevedad.",
+        description: "Gracias por contactarnos. Te responderemos a la brevedad."
       });
       form.reset();
     } catch (error) {
       toast.error("Error al enviar el mensaje", {
-        description: "Por favor, intenta nuevamente más tarde.",
+        description: "Por favor, intenta nuevamente más tarde."
       });
     }
   }
@@ -68,56 +68,56 @@ export function ContactPage() {
                     <FormField
                       control={form.control}
                       name="name"
-                      render={({ field }) => (
-                        <FormItem>
+                      render={({ field }) =>
+                      <FormItem>
                           <FormLabel>Nombre</FormLabel>
                           <FormControl>
                             <Input placeholder="Tu nombre" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
-                      )}
-                    />
+                      } />
+
                     <FormField
                       control={form.control}
                       name="email"
-                      render={({ field }) => (
-                        <FormItem>
+                      render={({ field }) =>
+                      <FormItem>
                           <FormLabel>Email</FormLabel>
                           <FormControl>
                             <Input type="email" placeholder="tu@email.com" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
-                      )}
-                    />
+                      } />
+
                   </div>
                   <FormField
                     control={form.control}
                     name="subject"
-                    render={({ field }) => (
-                      <FormItem>
+                    render={({ field }) =>
+                    <FormItem>
                         <FormLabel>Asunto</FormLabel>
                         <FormControl>
                           <Input placeholder="Ej: Consulta sobre propiedad ID 123" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )}
-                  />
+                    } />
+
                   <FormField
                     control={form.control}
                     name="message"
-                    render={({ field }) => (
-                      <FormItem>
+                    render={({ field }) =>
+                    <FormItem>
                         <FormLabel>Mensaje</FormLabel>
                         <FormControl>
                           <Textarea placeholder="Escribe tu mensaje aquí..." rows={5} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )}
-                  />
+                    } />
+
                   <Button type="submit" disabled={isSubmitting} className="w-full bg-brand-primary hover:bg-brand-primary/90 text-brand-primary-foreground">
                     {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     {isSubmitting ? 'Enviando...' : 'Enviar Mensaje'}
@@ -166,6 +166,6 @@ export function ContactPage() {
           </div>
         </div>
       </div>
-    </MainLayout>
-  );
+    </MainLayout>);
+
 }
