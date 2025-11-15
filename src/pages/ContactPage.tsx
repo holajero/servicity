@@ -1,49 +1,10 @@
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Phone, Mail, MapPin, Loader2 } from "lucide-react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { toast } from "sonner";
-import { api } from "@/lib/api-client";
-import type { ContactFormPayload } from "@shared/types";
-import { DynamicMap } from "@/components/DynamicMap";
-const contactFormSchema = z.object({
-  name: z.string().min(2, { message: "El nombre es requerido." }),
-  email: z.string().email({ message: "Por favor, ingresa un email válido." }),
-  subject: z.string().optional(),
-  message: z.string().min(10, { message: "El mensaje debe tener al menos 10 caracteres." })
-});
+import { Phone, Mail, MapPin } from "lucide-react";
 export function ContactPage() {
-  const form = useForm<z.infer<typeof contactFormSchema>>({
-    resolver: zodResolver(contactFormSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      subject: "",
-      message: ""
-    }
-  });
-  const { isSubmitting } = form.formState;
-  async function onSubmit(values: z.infer<typeof contactFormSchema>) {
-    try {
-      await api<ContactFormPayload>('/api/contact', {
-        method: 'POST',
-        body: JSON.stringify(values)
-      });
-      toast.success("¡Mensaje enviado!", {
-        description: "Gracias por contactarnos. Te responderemos a la brevedad."
-      });
-      form.reset();
-    } catch (error) {
-      toast.error("Error al enviar el mensaje", {
-        description: "Por favor, intenta nuevamente más tarde."
-      });
-    }
-  }
   return (
     <MainLayout>
       <div className="bg-brand-primary text-brand-primary-foreground">
@@ -62,64 +23,29 @@ export function ContactPage() {
                 <h2 className="text-3xl font-bold text-brand-primary">Envíanos un Mensaje</h2>
                 <p className="mt-2 text-muted-foreground">Completa el formulario y nuestro equipo se pondrá en contacto contigo.</p>
               </div>
-              <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <FormField
-                      control={form.control}
-                      name="name"
-                      render={({ field }) =>
-                      <FormItem>
-                          <FormLabel>Nombre</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Tu nombre" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      } />
-                    <FormField
-                      control={form.control}
-                      name="email"
-                      render={({ field }) =>
-                      <FormItem>
-                          <FormLabel>Email</FormLabel>
-                          <FormControl>
-                            <Input type="email" placeholder="tu@email.com" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      } />
+              <form className="space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="name">Nombre</Label>
+                    <Input id="name" placeholder="Tu nombre" />
                   </div>
-                  <FormField
-                    control={form.control}
-                    name="subject"
-                    render={({ field }) =>
-                    <FormItem>
-                        <FormLabel>Asunto</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Ej: Consulta sobre propiedad ID 123" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    } />
-                  <FormField
-                    control={form.control}
-                    name="message"
-                    render={({ field }) =>
-                    <FormItem>
-                        <FormLabel>Mensaje</FormLabel>
-                        <FormControl>
-                          <Textarea placeholder="Escribe tu mensaje aquí..." rows={5} {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    } />
-                  <Button type="submit" disabled={isSubmitting} className="w-full bg-brand-primary hover:bg-brand-primary/90 text-brand-primary-foreground">
-                    {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                    {isSubmitting ? 'Enviando...' : 'Enviar Mensaje'}
-                  </Button>
-                </form>
-              </Form>
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email</Label>
+                    <Input id="email" type="email" placeholder="tu@email.com" />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="subject">Asunto</Label>
+                  <Input id="subject" placeholder="Ej: Consulta sobre propiedad ID 123" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="message">Mensaje</Label>
+                  <Textarea id="message" placeholder="Escribe tu mensaje aquí..." rows={5} />
+                </div>
+                <Button type="submit" className="w-full bg-brand-primary hover:bg-brand-primary/90 text-brand-primary-foreground">
+                  Enviar Mensaje
+                </Button>
+              </form>
             </div>
             <div className="space-y-12">
               <div>
@@ -142,7 +68,7 @@ export function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold">Email</h3>
-                    <p className="text-muted-foreground">contacto@servicity.com.ar</p>
+                    <p className="text-muted-foreground">contacto@urbehogar.com.ar</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -155,8 +81,9 @@ export function ContactPage() {
                   </div>
                 </div>
               </div>
-              <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden border">
-                <DynamicMap coordinates={{ lat: -34.58, lng: -58.4 }} popupText="ServiCity.com.ar Oficinas" />
+              <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden">
+                {/* Placeholder for map */}
+                <img src="https://images.unsplash.com/photo-1572120360610-d971b9d7767c?q=80&w=2070&auto=format&fit=crop" alt="Mapa de la oficina" className="w-full h-full object-cover" />
               </div>
             </div>
           </div>

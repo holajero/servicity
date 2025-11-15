@@ -2,7 +2,7 @@ import { MainLayout } from "@/components/layout/MainLayout";
 import { Building, Target, Users, Handshake } from "lucide-react";
 export function AboutPage() {
   const teamMembers = [
-    { name: "Juan Pérez", role: "CEO & Fundador", image: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=1974&auto=format&fit=crop" },
+    { name: "Juan P��rez", role: "CEO & Fundador", image: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=1974&auto=format&fit=crop" },
     { name: "María García", role: "Directora de Ventas", image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop" },
     { name: "Carlos Rodriguez", role: "Especialista en Alquileres", image: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=2070&auto=format&fit=crop" },
   ];
@@ -10,7 +10,7 @@ export function AboutPage() {
     <MainLayout>
       <div className="bg-brand-primary text-brand-primary-foreground">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold">Sobre ServiCity.com.ar</h1>
+          <h1 className="text-4xl md:text-5xl font-bold">Sobre Urbe Hogar</h1>
           <p className="mt-4 text-lg text-brand-primary-foreground/80 max-w-3xl mx-auto">
             Conectando personas con sus hogares soñados, con profesionalismo, pasión y un profundo conocimiento del mercado inmobiliario.
           </p>
@@ -22,14 +22,14 @@ export function AboutPage() {
             <div>
               <h2 className="text-3xl font-bold text-brand-primary">Nuestra Historia</h2>
               <p className="mt-4 text-muted-foreground">
-                Fundada en 2010, ServiCity.com.ar nació de la visión de crear una inmobiliaria diferente, centrada en la confianza y la transparencia. Con más de una década de experiencia, nos hemos consolidado como líderes en el mercado, ayudando a miles de familias a encontrar su lugar en el mundo.
+                Fundada en 2010, Urbe Hogar nació de la visión de crear una inmobiliaria diferente, centrada en la confianza y la transparencia. Con más de una década de experiencia, nos hemos consolidado como líderes en el mercado, ayudando a miles de familias a encontrar su lugar en el mundo.
               </p>
               <p className="mt-4 text-muted-foreground">
                 Nuestro equipo de expertos combina la última tecnología con un trato personalizado para ofrecer un servicio de excelencia. Creemos que cada propiedad tiene una historia y cada cliente un sueño, y nuestra misión es unir ambos.
               </p>
             </div>
             <div className="rounded-lg overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?q=80&w=1992&auto=format&fit=crop" alt="Oficina de ServiCity.com.ar" className="w-full h-full object-cover" />
+              <img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?q=80&w=1992&auto=format&fit=crop" alt="Oficina de Urbe Hogar" className="w-full h-full object-cover" />
             </div>
           </div>
           <div className="mt-24 grid md:grid-cols-3 gap-8 text-center">

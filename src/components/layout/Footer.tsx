@@ -20,7 +20,7 @@ export function Footer() {
           <div className="space-y-4">
             <Link to="/" className="flex items-center space-x-2">
               <Building className="h-8 w-8 text-brand-accent" />
-              <span className="text-2xl font-bold">ServiCity.com.ar</span>
+              <span className="text-2xl font-bold">Urbe Hogar</span>
             </Link>
             <p className="text-sm text-brand-primary-foreground/80">
               Tu socio de confianza en bienes raíces.
@@ -43,7 +43,7 @@ export function Footer() {
             <ul className="mt-4 space-y-2 text-sm">
               <li>Av. Libertador 1234, CABA</li>
               <li>(011) 4567-8901</li>
-              <li>contacto@servicity.com.ar</li>
+              <li>contacto@urbehogar.com.ar</li>
             </ul>
           </div>
           <div>
@@ -58,7 +58,7 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-8 pt-8 border-t border-brand-primary-foreground/20 text-center text-sm text-brand-primary-foreground/60">
-          <p>&copy; {new Date().getFullYear()} ServiCity.com.ar. Todos los derechos reservados.</p>
+          <p>&copy; {new Date().getFullYear()} Urbe Hogar. Todos los derechos reservados.</p>
           <p className="mt-1">Built with ❤️ at Cloudflare</p>
         </div>
       </div>

@@ -91,6 +91,13 @@ export default {
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		colors: {
+        brand: {
+          primary: 'hsl(225, 73%, 21%)',
+          'primary-foreground': 'hsl(210, 40%, 98%)',
+          accent: 'hsl(45, 100%, 50%)',
+          'accent-foreground': 'hsl(225, 73%, 11%)',
+          background: 'hsl(210, 40%, 98%)',
+        },
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			muted: {

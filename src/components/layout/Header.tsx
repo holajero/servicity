@@ -31,7 +31,7 @@ export function Header() {
         <div className="flex h-16 items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
             <Building className="h-7 w-7 text-brand-accent" />
-            <span className="text-xl font-bold text-brand-primary-foreground">ServiCity</span>
+            <span className="text-xl font-bold text-brand-primary-foreground">Urbe Hogar</span>
           </Link>
           <nav className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => (
@@ -58,7 +58,7 @@ export function Header() {
                   <div className="flex items-center justify-between p-4 border-b border-brand-primary-foreground/20">
                      <Link to="/" className="flex items-center gap-2" onClick={() => setSheetOpen(false)}>
                         <Building className="h-7 w-7 text-brand-accent" />
-                        <span className="text-xl font-bold text-brand-primary-foreground">ServiCity</span>
+                        <span className="text-xl font-bold text-brand-primary-foreground">Urbe Hogar</span>
                     </Link>
                     <SheetTrigger asChild>
                         <Button variant="ghost" size="icon">

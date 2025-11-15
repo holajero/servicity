@@ -3,22 +3,29 @@ export interface ApiResponse<T = unknown> {
   data?: T;
   error?: string;
 }
-
-// Minimal real-world chat example types (shared by frontend and worker)
-export interface User {
-  id: string;
-  name: string;
-}
-
-export interface Chat {
+export type PropertyType = 'Casa' | 'Departamento' | 'PH' | 'Local' | 'Terreno';
+export type Currency = 'USD' | 'ARS';
+export interface Property {
   id: string;
   title: string;
-}
-
-export interface ChatMessage {
-  id: string;
-  chatId: string;
-  userId: string;
-  text: string;
-  ts: number; // epoch millis
+  description: string;
+  price: number;
+  currency: Currency;
+  location: {
+    address: string;
+    city: string;
+    neighborhood: string;
+  };
+  type: PropertyType;
+  bedrooms: number;
+  bathrooms: number;
+  area: number; // in square meters
+  images: string[];
+  amenities: string[];
+  featured: boolean;
+  agent: {
+    name: string;
+    phone: string;
+    email: string;
+  };
 }
