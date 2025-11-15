@@ -77,7 +77,11 @@ function updateWranglerJsonc() {
 }
 
 function runSetupCommands() {
-    const commands = [];
+    const commands = [
+    "bun add react-leaflet@^4.2.1",
+    "bun add leaflet@^1.9.4",
+    "bun add -d @types/leaflet@^1.9.12"
+];
     
     if (commands.length === 0) {
         console.log('⊘ No setup commands to run');
