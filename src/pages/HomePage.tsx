@@ -3,10 +3,17 @@ import { PropertyCard } from "@/components/PropertyCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { MOCK_PROPERTIES } from "@shared/mock-data";
 import { Search, Building, Users, Handshake } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "@/lib/api-client";
+import type { Property } from "@shared/types";
+import { PropertyCardSkeleton } from "@/components/PropertyCardSkeleton";
 export function HomePage() {
-  const featuredProperties = MOCK_PROPERTIES.filter(p => p.featured).slice(0, 6);
+  const { data: properties, isLoading } = useQuery<{ items: Property[] }>({
+    queryKey: ['properties'],
+    queryFn: () => api('/api/properties')
+  });
+  const featuredProperties = properties?.items.filter(p => p.featured).slice(0, 6) || [];
   return (
     <MainLayout>
       {/* Hero Section */}
@@ -50,9 +57,13 @@ export function HomePage() {
             </p>
           </div>
           <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredProperties.map(property => (
-              <PropertyCard key={property.id} property={property} />
-            ))}
+            {isLoading ? (
+              Array.from({ length: 6 }).map((_, i) => <PropertyCardSkeleton key={i} />)
+            ) : (
+              featuredProperties.map(property => (
+                <PropertyCard key={property.id} property={property} />
+              ))
+            )}
           </div>
           <div className="mt-12 text-center">
             <Button asChild size="lg" className="bg-brand-primary hover:bg-brand-primary/90 text-brand-primary-foreground">

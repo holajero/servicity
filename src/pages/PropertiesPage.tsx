@@ -5,9 +5,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
-import { MOCK_PROPERTIES } from "@shared/mock-data";
 import { ListFilter, Search } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "@/lib/api-client";
+import type { Property } from "@shared/types";
+import { PropertyCardSkeleton } from "@/components/PropertyCardSkeleton";
 export function PropertiesPage() {
+  const { data: propertiesData, isLoading } = useQuery<{ items: Property[] }>({
+    queryKey: ['properties'],
+    queryFn: () => api('/api/properties')
+  });
+  const properties = propertiesData?.items || [];
   return (
     <MainLayout>
       <div className="bg-muted/30">
@@ -81,7 +89,7 @@ export function PropertiesPage() {
           {/* Properties Grid */}
           <main className="lg:col-span-3">
             <div className="flex justify-between items-center mb-6">
-              <p className="text-muted-foreground">{MOCK_PROPERTIES.length} propiedades encontradas</p>
+              <p className="text-muted-foreground">{isLoading ? 'Cargando...' : `${properties.length} propiedades encontradas`}</p>
               <div className="flex items-center gap-2">
                 <Label className="text-sm">Ordenar por:</Label>
                 <Select defaultValue="relevance">
@@ -98,9 +106,13 @@ export function PropertiesPage() {
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {MOCK_PROPERTIES.map(property => (
-                <PropertyCard key={property.id} property={property} />
-              ))}
+              {isLoading ? (
+                Array.from({ length: 8 }).map((_, i) => <PropertyCardSkeleton key={i} />)
+              ) : (
+                properties.map(property => (
+                  <PropertyCard key={property.id} property={property} />
+                ))
+              )}
             </div>
           </main>
         </div>

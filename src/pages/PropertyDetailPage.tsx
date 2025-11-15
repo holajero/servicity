@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { MOCK_PROPERTIES } from "@shared/mock-data";
-import { BedDouble, Bath, Ruler, MapPin, CheckCircle, Mail, Phone } from "lucide-react";
+import { BedDouble, Bath, Ruler, MapPin, CheckCircle, Mail, Phone, AlertTriangle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
@@ -9,15 +8,69 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "@/lib/api-client";
+import type { Property } from "@shared/types";
+import { Skeleton } from "@/components/ui/skeleton";
+function PropertyDetailSkeleton() {
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="grid lg:grid-cols-3 gap-8">
+        <div className="lg:col-span-2">
+          <Skeleton className="w-full aspect-video rounded-lg" />
+          <div className="mt-8">
+            <Skeleton className="h-6 w-24" />
+            <Skeleton className="h-10 w-3/4 mt-4" />
+            <Skeleton className="h-6 w-1/2 mt-2" />
+            <Skeleton className="h-12 w-1/3 mt-4" />
+            <div className="flex flex-wrap gap-6 mt-6 border-t border-b py-4">
+              <Skeleton className="h-8 w-32" />
+              <Skeleton className="h-8 w-24" />
+              <Skeleton className="h-8 w-36" />
+            </div>
+          </div>
+          <div className="mt-8">
+            <Skeleton className="h-8 w-48" />
+            <Skeleton className="h-24 w-full mt-4" />
+          </div>
+        </div>
+        <aside className="lg:col-span-1">
+          <Card>
+            <CardHeader>
+              <Skeleton className="h-8 w-full" />
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <Skeleton className="h-10 w-full" />
+              <Skeleton className="h-10 w-full" />
+              <Skeleton className="h-24 w-full" />
+              <Skeleton className="h-12 w-full" />
+            </CardContent>
+          </Card>
+        </aside>
+      </div>
+    </div>
+  );
+}
 export function PropertyDetailPage() {
-  const { id } = useParams();
-  const property = MOCK_PROPERTIES.find(p => p.id === id);
-  if (!property) {
+  const { id } = useParams<{ id: string }>();
+  const { data: property, isLoading, isError } = useQuery<Property>({
+    queryKey: ['property', id],
+    queryFn: () => api(`/api/properties/${id}`),
+    enabled: !!id,
+  });
+  if (isLoading) {
+    return <MainLayout><PropertyDetailSkeleton /></MainLayout>;
+  }
+  if (isError || !property) {
     return (
       <MainLayout>
-        <div className="text-center py-20">
-          <h1 className="text-2xl font-bold">Propiedad no encontrada</h1>
+        <div className="text-center py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AlertTriangle className="mx-auto h-12 w-12 text-destructive" />
+          <h1 className="mt-4 text-2xl font-bold">Propiedad no encontrada</h1>
           <p className="text-muted-foreground mt-2">La propiedad que buscas no existe o fue removida.</p>
+          <Button asChild className="mt-6">
+            <a href="/propiedades">Volver a Propiedades</a>
+          </Button>
         </div>
       </MainLayout>
     );
